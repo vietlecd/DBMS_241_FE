@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
+import { useState } from "react";
+import LoginModal from "./LoginModal"; // Import the LoginModal component
 
 const Header = ({ onSearch }) => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  const openLoginModal = () => setIsLoginOpen(true);
+  const closeLoginModal = () => setIsLoginOpen(false);
+
   return (
     <div>
       {/* Top Banner */}
@@ -19,7 +26,7 @@ const Header = ({ onSearch }) => {
           <img
             id="logo"
             src="/a_1-removebg-preview.png"
-            alt="Manga Store Logo"
+            alt="Book Shop Logo"
             className="h-12 mr-2 bg-transparent"
           />
           <h6 className="font-bold text-red-500 text-lg">Book Shop</h6>
@@ -41,9 +48,12 @@ const Header = ({ onSearch }) => {
         <div className="flex items-center space-x-5">
           <FaSearch size={24} className="text-red-500 cursor-pointer" onClick={onSearch} />
           <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
-          <FaUser size={24} className="text-red-500 cursor-pointer" />
+          <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openLoginModal} />
         </div>
       </div>
+
+      {/* Login Modal */}
+      {isLoginOpen && <LoginModal onClose={closeLoginModal} />}
     </div>
   );
 };
