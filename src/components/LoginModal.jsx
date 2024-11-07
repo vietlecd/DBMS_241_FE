@@ -34,7 +34,7 @@ const LoginModal = ({ onClose }) => {
                 type="email"
                 id="email"
                 className="mt-1 px-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="Enter your email"
+                placeholder="Enter your username"
               />
             </div>
             <div className="mb-6">
