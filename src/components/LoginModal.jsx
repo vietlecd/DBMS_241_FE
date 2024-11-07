@@ -28,7 +28,7 @@ const LoginModal = ({ onClose }) => {
           <form className="w-full px-6 py-4">
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-semibold text-gray-600">
-                Email
+                Username
               </label>
               <input
                 type="email"
