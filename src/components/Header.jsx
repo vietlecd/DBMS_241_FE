@@ -1,16 +1,17 @@
 import PropTypes from "prop-types";
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
 import { useState } from "react";
-import RegisterModal from "./RegisterModal"; // Import the LoginModal component
+import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal"; 
 
 const Header = ({ onSearch }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false); 
 
-  const openLoginModal = () => setIsLoginOpen(true);
-  const closeLoginModal = () => setIsLoginOpen(false);
-  const openRegisterModal = () => setIsRegisterOpen(true);
-  const closeRegisterModal = () => setIsRegisterOpen(false);
+  const openLoginModal = () => setIsLoginOpen(true); 
+  const closeLoginModal = () => setIsLoginOpen(false); 
+  const openRegisterModal = () => setIsRegisterOpen(true); 
+  const closeRegisterModal = () => setIsRegisterOpen(false); 
 
   return (
     <div>
@@ -51,12 +52,31 @@ const Header = ({ onSearch }) => {
         <div className="flex items-center space-x-5">
           <FaSearch size={24} className="text-red-500 cursor-pointer" onClick={onSearch} />
           <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
-          <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openRegisterModal} />
+          <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openLoginModal} />
         </div>
       </div>
 
       {/* Login Modal */}
-      {isRegisterOpen && <RegisterModal onClose={closeRegisterModal} />}
+      {isLoginOpen && (
+        <LoginModal
+          onClose={closeLoginModal}
+          onSwitchToRegister={() => {
+            closeLoginModal(); 
+            openRegisterModal(); 
+          }}
+        />
+      )}
+
+      {/* Register Modal */}
+      {isRegisterOpen && (
+        <RegisterModal
+          onClose={closeRegisterModal}
+          onSwitchToLogin={() => {
+            closeRegisterModal(); 
+            openLoginModal();
+          }}
+        />
+      )}
     </div>
   );
 };
