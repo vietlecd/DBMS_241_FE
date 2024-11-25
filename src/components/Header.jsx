@@ -1,13 +1,16 @@
 import PropTypes from "prop-types";
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
 import { useState } from "react";
-import LoginModal from "./LoginModal"; // Import the LoginModal component
+import RegisterModal from "./RegisterModal"; // Import the LoginModal component
 
 const Header = ({ onSearch }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const openLoginModal = () => setIsLoginOpen(true);
   const closeLoginModal = () => setIsLoginOpen(false);
+  const openRegisterModal = () => setIsRegisterOpen(true);
+  const closeRegisterModal = () => setIsRegisterOpen(false);
 
   return (
     <div>
@@ -48,12 +51,12 @@ const Header = ({ onSearch }) => {
         <div className="flex items-center space-x-5">
           <FaSearch size={24} className="text-red-500 cursor-pointer" onClick={onSearch} />
           <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
-          <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openLoginModal} />
+          <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openRegisterModal} />
         </div>
       </div>
 
       {/* Login Modal */}
-      {isLoginOpen && <LoginModal onClose={closeLoginModal} />}
+      {isRegisterOpen && <RegisterModal onClose={closeRegisterModal} />}
     </div>
   );
 };
