@@ -1,50 +1,94 @@
 import { FaTimes } from "react-icons/fa";
+import { useState } from "react";
 
-const LoginModal = ({ onClose }) => {
+const LoginModal = ({ onClose, onSwitchToRegister }) => {
+  // State để quản lý giá trị của các input
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://devjava-latest.onrender.com/api/users/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        alert(`Error: ${errorData || "Login failed"}`);
+        return;
+      }
+
+      const data = await response.text();
+      alert("Login successful!");
+      console.log("User Data:", data);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      alert("An error occurred while logging in. Please try again later.");
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full relative mt-20 z-[1000]">
-        
+      <div className="bg-white rounded-lg shadow-lg max-w-md w-[380px] h-[500px] relative mt-20 z-[1000]">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-0 text-gray-200  hover:text-gray-800"
+          className="absolute top-2 right-1 text-gray-200 hover:text-gray-800"
         >
           <FaTimes size={20} />
         </button>
 
-        <div className="flex flex-col items-center p-6">
+        <div className="flex flex-col items-center p-3 scale-90 h-[500px]">
           {/* Background image */}
           <div
             className="w-full h-40 bg-cover bg-center rounded-t-lg"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1512820790803-83ca734da794?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDg1NzR8MHwxfGFsbHwxfHx8fHx8fHwxNjA3ODQyNjUy&ixlib=rb-1.2.1&q=80&w=1080')",
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1512820790803-83ca734da794?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwyMDg1NzR8MHwxfGFsbHwxfHx8fHx8fHwxNjA3ODQyNjUy&ixlib=rb-1.2.1&q=80&w=1080')",
             }}
           ></div>
 
-          <h2 className="mt-4 text-2xl font-bold text-gray-800">Welcome Back</h2>
-          <p className="text-gray-500">Log in to access your account</p>
+          <p className="text-gray-600">Login to your account</p>
 
-          <form className="w-full px-6 py-4">
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-600">
+          <form className="w-full px-4 py-2" onSubmit={handleLogin}>
+            <div className="mb-2">
+              <label
+                htmlFor="username"
+                className="text-1xl block font-semibold text-gray-600"
+              >
                 Username
               </label>
               <input
-                type="email"
-                id="email"
-                className="mt-1 px-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                maxLength="150"
+                autoComplete="on"
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-1 px-4 py-4 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
                 placeholder="Enter your username"
               />
             </div>
-            <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-semibold text-gray-600">
+            <div className="mb-2">
+              <label
+                htmlFor="password"
+                className="block text-1xl font-semibold text-gray-600"
+              >
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="mt-1 px-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 px-4 py-4 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
                 placeholder="Enter your password"
               />
             </div>
@@ -52,12 +96,18 @@ const LoginModal = ({ onClose }) => {
               type="submit"
               className="w-full py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition duration-300"
             >
-              Log In
+              Login
             </button>
-            <button type = "button"
-              className="w-full py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition duration-300 my-1">
-              Register</button>
           </form>
+          <p className="mt-4 text-sm text-gray-500">
+            Don't have an account?{" "}
+            <button
+              onClick={onSwitchToRegister}
+              className="text-red-500 hover:underline"
+            >
+              Register here
+            </button>
+          </p>
         </div>
       </div>
     </div>
