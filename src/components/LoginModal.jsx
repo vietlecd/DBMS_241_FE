@@ -1,11 +1,12 @@
 import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ onClose, onSwitchToRegister }) => {
   // State để quản lý giá trị của các input
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
 
 
   const handleLogin = async (e) => {
@@ -13,8 +14,8 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
 
     try {
       const response = await fetch(
-        "https://devjava-latest.onrender.com/api/users/login",
-        //"http://localhost:8080/api/users/login",
+        //"https://devjava-latest.onrender.com/api/users/login",
+        "http://localhost:8080/api/users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -30,6 +31,7 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
       }
 
       alert("Login successful!");
+      navigate("/profile");
     } catch (error) {
       console.error("An error occurred:", error);
       alert("An error occurred while logging in. Please try again later.");
