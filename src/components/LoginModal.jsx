@@ -13,8 +13,8 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
 
     try {
       const response = await fetch(
-        "https://devjava-latest.onrender.com/api/users/login",
-        //"http://localhost:8080/api/users/login",
+        //"https://devjava-latest.onrender.com/api/users/login",
+        "http://localhost:8080/api/users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
