@@ -4,7 +4,9 @@ const CustomerSupport = () => {
   return (
     <div className="flex flex-col items-center text-center px-2 -inset-0 bg-gray-800 text-white rounded-lg scale-90">
       <h1 className="text-2xl font-bold mb-4">Bạn cần hỗ trợ</h1>
-      <p className="text-gray-400 mb-8">Liên hệ với chúng tôi thông qua các kênh hỗ trợ:</p>
+      <p className="text-gray-400 mb-8">
+        Liên hệ với chúng tôi thông qua các kênh hỗ trợ:
+      </p>
       <div className="grid grid-cols-2 gap-4 mb-8">
         <button className="flex items-center justify-center bg-gray-700 border border-gray-600 py-2 px-4 rounded-full">
           <img
@@ -31,7 +33,7 @@ const CustomerSupport = () => {
             alt="Hotline"
             className="w-6 h-6 mr-2"
           />
-          Hotline: 0877736289
+          Hotline: 08777354454
         </button>
         <button className="flex items-center justify-start bg-gray-700 border border-gray-600 py-2 px-4 rounded-full w-full">
           <img
@@ -39,7 +41,7 @@ const CustomerSupport = () => {
             alt="Tổng đài"
             className="w-6 h-6 mr-2"
           />
-          Tổng đài: 1900545482 nhánh 5
+          Tổng đài: 0901847726
         </button>
         <button className="flex items-center justify-start bg-gray-700 border border-gray-600 py-2 px-4 rounded-full w-full">
           <img
@@ -47,7 +49,7 @@ const CustomerSupport = () => {
             alt="Email"
             className="w-6 h-6 mr-2"
           />
-          Email: support@waka.vn
+          Email: support@bookshop.vn
         </button>
       </div>
     </div>

@@ -39,13 +39,13 @@ const Header = ({ onSearch }) => {
         {/* Navigation Menu */}
         <nav className="flex items-center space-x-5 font-semibold mx-auto text-white">
           <a href="/" className="transition-colors duration-200 hover:text-red-500">Home</a>
-          <a href="/categories" className="transition-colors duration-200 hover:text-red-500">Shop</a>
-          <a href="/p/about-us" className="transition-colors duration-200 hover:text-red-500">About Us</a>
-          <a href="/p/return-and-replacement" className="transition-colors duration-200 hover:text-red-500">Return & Replacement</a>
-          <a href="/p/contact-us" className="transition-colors duration-200 hover:text-red-500">Contact Us</a>
-          <a href="/p/terms-and-conditions" className="transition-colors duration-200 hover:text-red-500">Terms & Conditions</a>
-          <a href="/p/privacy-policy" className="transition-colors duration-200 hover:text-red-500">Privacy Policy</a>
-          <a href="/p/cancellationrefund-policy" className="transition-colors duration-200 hover:text-red-500">Cancellation/Refund Policy</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Shop</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">About Us</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Return & Replacement</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Contact Us</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Terms & Conditions</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Privacy Policy</a>
+          <a href="/" className="transition-colors duration-200 hover:text-red-500">Cancellation/Refund Policy</a>
         </nav>
 
         {/* Icons Section */}
