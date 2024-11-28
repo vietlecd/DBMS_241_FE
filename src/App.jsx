@@ -1,45 +1,27 @@
-import { useState } from "react";
-import Header from "./components/Header";
-import Banner from "./components/Banner";
-import BookList from "./components/BookList";
-import Footer from "./components/Footer";
-import Book from "./components/Book";
-import LoginModal from "./components/LoginModal";
-import RegisterModal from "./components/RegisterModal";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainLayout from "./components/MainLayout";
+import HomePage from "./components/HomePage";
+import UserProfile from "./components/User/UserProfile/UserProfile";
+import VNPay from "./components/VNPay/index";
+import Fail from "./components/VNPay/Fail/index";
+import Success from "./components/VNPay/Success/index";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
-
   return (
-    <div className="bg-black pb-10">
-      <Header />
-      <Banner />
-      {/* Modal Login */}
-      {isLogin && (
-        <LoginModal
-          onClose={() => setIsLogin(false)} 
-          onSwitchToRegister={() => {
-            setIsRegister(true); 
-            setIsLogin(false);  
-          }}
-        />
-      )}
-      {/* Modal Register */}
-      {isRegister && (
-        <RegisterModal
-          onClose={() => setIsRegister(false)} 
-          onSwitchToLogin={() => {
-            setIsLogin(true); 
-            setIsRegister(false); 
-          }}
-        />
-      )}
-      <BookList title={"Sách Đề Cử"} />
-      <BookList title={"Sách Miễn Phí"} />
-      <Book />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        {/* Main layout */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+        {/* User Profile */}
+        <Route path="/profile/*" element={<UserProfile />} />
+        <Route path="/account/books" element={<UserProfile />} />
+        <Route path="/payment" element={<VNPay />} />
+        <Route path="/fail" element={<Fail />} />
+        <Route path="/success" element={<Success />} />
+      </Routes>
+    </Router>
   );
 }
 
