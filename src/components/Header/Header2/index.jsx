@@ -1,10 +1,20 @@
 import PropTypes from "prop-types";
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
 import { useState } from "react";
+import RegisterModal from "../../RegisterModal";
+import LoginModal from "../../LoginModal";
 
 function Header2() {
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+
+    const openLoginModal = () => setIsLoginOpen(true);
+    const closeLoginModal = () => setIsLoginOpen(false);
+    const openRegisterModal = () => setIsRegisterOpen(true);
+    const closeRegisterModal = () => setIsRegisterOpen(false);
 
     const openSearch = () => setShowSearch(!showSearch);
 
@@ -13,16 +23,6 @@ function Header2() {
     };
 
     console.log(searchTerm);
-
-    const onSearch = () => {
-        console.log("Search");
-    }
-
-    const handleKeydown = (e) => {
-        if (e.key === "Enter") {
-            onSearch();
-        }
-    }
 
     return (
         <div>
@@ -52,34 +52,60 @@ function Header2() {
                 <div className="flex items-center space-x-5 mr-24">
                     <div className="relative">
                         <FaSearch size={24} className="text-red-500 cursor-pointer" onClick={openSearch} />
-                    {showSearch && (
-                        <input type="text"
-                            value={searchTerm}
-                            onChange={onSearchChange}
-                            onKeyDown={handleKeydown}
-                            placeholder="Search here..."
-                            className={`absolute top-0 right-8 transition-all duration-500 ease-in-out ${showSearch ? "opacity-100 scale-100" : "opacity-0 scale-0"} border-2 border-red-500 flex w-52 h-8 rounded-lg p-2 bg-transparent text-white`}
-                        />
-                    )}
-                </div>
-                <div className="cursor-pointer bg-package border border-[#FC0] rounded-2xl px-2.5 py-[5.25px] bg-[rgba(255,204,0,0.16)] min-w-[92px] flex items-center">
-                    <div className="w-4 h-4">
-                        <img src="https://waka.vn/svgs/icon-vip.svg"
-                            alt="icon-vip"
-                            className="cursor-pointer">
-                        </img>
+                        {showSearch && (
+                            <input type="text"
+                                value={searchTerm}
+                                onChange={onSearchChange}
+                                onKeyDown={handleKeydown}
+                                placeholder="Search here..."
+                                className={`absolute top-0 right-8 transition-all duration-500 ease-in-out ${showSearch ? "opacity-100 scale-100" : "opacity-0 scale-0"} border-2 border-red-500 flex w-52 h-8 rounded-lg p-2 bg-transparent text-white`}
+                            />
+                        )}
                     </div>
-                    <p className="text-[13px] text-[#fc0] pl-[3px] whitespace-nowrap ">
-                        Gói cước
-                    </p>
+                    <div className="cursor-pointer bg-package border border-[#FC0] rounded-2xl px-2.5 py-[5.25px] bg-[rgba(255,204,0,0.16)] min-w-[92px] flex items-center">
+                        <div className="w-4 h-4">
+                            <img src="https://waka.vn/svgs/icon-vip.svg"
+                                alt="icon-vip"
+                                className="cursor-pointer">
+                            </img>
+                        </div>
+                        <p className="text-[13px] text-[#fc0] pl-[3px] whitespace-nowrap ">
+                            Gói cước
+                        </p>
+                    </div>
+                    
+                    <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
+                    <FaUser size={24} className="text-red-500 cursor-pointer" onClick={openLoginModal} />
                 </div>
-                <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
-                <FaUser size={24} className="text-red-500 cursor-pointer" />
+                
             </div>
-        </div>
+
+            {/* Login Modal */}
+            {isLoginOpen && (
+                <LoginModal
+                    onClose={closeLoginModal}
+                    onSwitchToRegister={() => {
+                        closeLoginModal();
+                        openRegisterModal();
+                    }}
+                />
+            )}
+
+            {/* Register Modal */}
+            {isRegisterOpen && (
+                <RegisterModal
+                    onClose={closeRegisterModal}
+                    onSwitchToLogin={() => {
+                        closeRegisterModal();
+                        openLoginModal();
+                    }}
+                />
+            )}
         </div >
     );
 }
+
+
 
 export default Header2;
 

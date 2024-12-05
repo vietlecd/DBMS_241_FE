@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import UserBooks from "./UserBook";
@@ -7,22 +7,27 @@ import CustomerSupport from "./CustomerSupport";
 import UserTransactions from "./TransactionHistory";
 
 const UserProfile = () => {
+  const token = localStorage.getItem("authToken");
   const [userData, setUserData] = useState({
     fullname: "",
     phone_number: "",
     username: "",
   });
   const [activeContent, setActiveContent] = useState("profile"); // Track active content
+  const [isAuthorFormVisible, setIsAuthorFormVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [savedFullname, setSavedFullname] = useState("");
   const [isSupportVisible, setIsSupportVisible] = useState(false);
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/users", {
+      // const response = await fetch("http://localhost:8080/api/users", {
+        const response = await fetch("https://devjava-latest.onrender.com/api/users/login", {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, 
+      },
       });
 
       if (!response.ok) {
@@ -44,10 +49,13 @@ const UserProfile = () => {
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/users/update", {
+      // const response = await fetch("http://localhost:8080/api/users/update", {
+        const response = await fetch("http://localhost:8080/api/users/update", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(userData),
       });
 
@@ -74,6 +82,14 @@ const UserProfile = () => {
     setUserData({ ...userData, [name]: value });
   };
 
+  const handleClick = () => {
+    window.location.href = "http://localhost:5173/payment";
+  };
+
+  const handleAuthorSubmit = () => {
+    window.location.href = "http://localhost:5173/author";
+  };
+
   const handleCancel = () => {
     setUserData({
       fullname: "",
@@ -87,7 +103,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    
+
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
       <Header />
@@ -116,10 +132,12 @@ const UserProfile = () => {
                 </svg>
               </div>
               <div className="mt-4 flex space-x-4">
-                <button className="px-4 py-2 bg-green-400 hover:bg-green-600 text-white font-semibold rounded-lg">
+                <button className="px-4 py-2 bg-green-400 hover:bg-green-600 text-white font-semibold rounded-lg"
+                  onClick={handleClick}>
                   Nạp Point
                 </button>
-                <button className="px-4 py-2 bg-green-400 hover:bg-green-600 text-white font-semibold rounded-lg">
+                <button className="px-4 py-2 bg-green-400 hover:bg-green-600 text-white font-semibold rounded-lg"
+                  onClick={handleAuthorSubmit}>
                   Trở Thành Tác Giả
                 </button>
               </div>
@@ -127,8 +145,8 @@ const UserProfile = () => {
             <ul className="space-y-4">
               <li
                 className={`p-2 rounded-xl cursor-pointer ${activeContent === "profile"
-                    ? "bg-gray-700 text-green-400"
-                    : "hover:bg-gray-700"
+                  ? "bg-gray-700 text-green-400"
+                  : "hover:bg-gray-700"
                   }`}
                 onClick={() => setActiveContent("profile")}
               >
@@ -146,8 +164,8 @@ const UserProfile = () => {
               </li>
               <li
                 className={`p-2 rounded-xl cursor-pointer ${activeContent === "books"
-                    ? "bg-gray-700 text-green-400"
-                    : "hover:bg-gray-700"
+                  ? "bg-gray-700 text-green-400"
+                  : "hover:bg-gray-700"
                   }`}
                 onClick={() => setActiveContent("books")}
               >
@@ -165,8 +183,8 @@ const UserProfile = () => {
               </li>
               <li
                 className={`p-2 rounded-xl cursor-pointer ${activeContent === "transactions"
-                    ? "bg-gray-700 text-green-400"
-                    : "hover:bg-gray-700"
+                  ? "bg-gray-700 text-green-400"
+                  : "hover:bg-gray-700"
                   }`}
                 onClick={() => setActiveContent("transactions")}
               >
@@ -201,7 +219,7 @@ const UserProfile = () => {
           <div className="flex-1 p-6">
             {activeContent === "profile" && (
               <div>
-                <h1 className="text-2xl font-bold mb-6">Quản lý thông tin</h1>
+                <h1 className="ml-7 text-2xl font-bold mb-6">Quản lý thông tin</h1>
                 <div className="p-6 rounded-lg space-y-4 max-w-md">
                   <div className="px-0 py-1 rounded-lg">
                     <label className="text-gray-400 text-sm">

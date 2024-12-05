@@ -8,13 +8,13 @@ const RegisterModal = ({ onClose, onSwitchToLogin }) => {
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [fullname, setFullName] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const payload = {
-      fullName,
+      fullname,
       phone_number: phoneNumber,
       password,
       username,
@@ -25,7 +25,7 @@ const RegisterModal = ({ onClose, onSwitchToLogin }) => {
     try {
       console.log("Payload:", payload);
       const response = await fetch(
-        "https://devjava-latest.onrender.com/api/users/register",
+        "http://localhost:8080/api/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ const RegisterModal = ({ onClose, onSwitchToLogin }) => {
               </label>
               <input
                 type="text"
-                value={fullName}
+                value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
                 className="mt-1 px-4 py-2 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
                 placeholder="Enter your first name"
