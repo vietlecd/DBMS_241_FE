@@ -8,6 +8,8 @@ const packages = Data.slice(0, 8);
 function PackageCard({ title, price, points }) {
     const handleClick = async () => {
         try {
+            const token = localStorage.getItem('authToken');
+            
             console.log("Nạp gói");
 
             const amount = parseInt(price.replace(/[^0-9]/g, ""), 10);
@@ -18,8 +20,8 @@ function PackageCard({ title, price, points }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
-                credentials: "include",
             });
 
             if (!response.ok) {

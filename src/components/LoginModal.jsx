@@ -14,13 +14,12 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
 
     try {
       const response = await fetch(
-        //"https://devjava-latest.onrender.com/api/users/login",
-        "http://localhost:8080/api/users/login",
+        "https://devjava-latest.onrender.com/api/users/login",
+        //"http://localhost:8080/api/users/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
-          credentials: "include",
         }
       );
 
@@ -30,6 +29,12 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
         return;
       }
 
+      const token = await response.text(); 
+
+      console.log('Token received:', token);
+
+      localStorage.setItem('authToken', token);
+
       alert("Login successful!");
       navigate("/profile");
     } catch (error) {
@@ -38,7 +43,7 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
     }
   };
 
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg max-w-md w-[380px] h-[500px] relative mt-20 z-[1000]">
@@ -105,7 +110,7 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
             </button>
           </form>
 
-          
+
 
           <p className="mt-4 text-sm text-gray-500">
             Don't have an account?{" "}

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 const TransactionHistory = () => {
+  const token = localStorage.getItem("authToken");
+
   const [transactionData, setTransactionData] = useState([]);
   const [vnPayData, setVnPayData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,13 +18,17 @@ const TransactionHistory = () => {
         const [transactionResponse, vnPayResponse] = await Promise.all([
           fetch("http://localhost:8080/api/payment/get", {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
+            headers: { 
+              "Content-Type": "application/json", 
+              Authentication: `Bearer ${token}`,
+            },
           }),
           fetch("http://localhost:8080/api/payments", {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
+            headers: { 
+              "Content-Type": "application/json", 
+              Authentication: `Bearer ${token}`,
+            },
           }),
         ]);
 
