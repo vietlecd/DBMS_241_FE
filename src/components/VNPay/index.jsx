@@ -1,5 +1,5 @@
-import Header2 from "../Header/Header2";
-import Footer from "../Footer";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 import Data from "./Packages";
 import { Link, Navigate, redirect } from "react-router-dom";
 
@@ -66,7 +66,7 @@ return (
 function VNPay() {
     return (
         <div className="min-h-screen flex flex-col">
-            <Header2 />
+            <Header />
             {/* Background */}
             <div className="w-screen bg-cover bg-center bg-no-repeat relative">
                 <img src="https://img.freepik.com/free-vector/new-moderen-background-abstract-colorfuel_125964-802.jpg?t=st=1732770218~exp=1732773818~hmac=d62421063d653f2943cdb08c33335ca54a5f805db6d1f20eed59baa53bca5e5f&w=1380"

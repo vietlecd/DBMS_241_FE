@@ -2,6 +2,7 @@ import { FaTimes } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
+import {login, register} from '../../services/AuthService';
 
 const RegisterModal = ({ onClose, onSwitchToLogin }) => {
   const [username, setUsername] = useState("");
@@ -23,23 +24,10 @@ const RegisterModal = ({ onClose, onSwitchToLogin }) => {
     };
 
     try {
-      console.log("Payload:", payload);
-      const response = await fetch(
-        "http://localhost:8080/api/users/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
-    
-      console.log("Response status:", response.status);
-      const responseData = await response.text();
-      console.log("Response data:", responseData);
-    
+      const response = await register(payload);
       if (!response.ok) {
         toast.error(
-          responseData || "An error occurred during registration.",
+          response || "An error occurred during registration.",
           { position: "top-center", autoClose: 2000 }
         );
         return;

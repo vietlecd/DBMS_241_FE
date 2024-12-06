@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../Footer";
-import Header2 from "../../Header/Header2";
+import Footer from "../../Footer/Footer";
+import Header from "../../Header/Header";
 import AuthorBook from "../AuthorBook";
 
 const AuthorProfile = () => {
@@ -85,7 +85,7 @@ const AuthorProfile = () => {
 
         <div className="min-h-screen bg-gray-800 text-white">
             {/* Header */}
-            <Header2 />
+            <Header />
             <hr className=""/>
 
             <div className="container mx-auto px-6 py-10 pt-40">
