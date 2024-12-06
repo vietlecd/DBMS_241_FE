@@ -2,7 +2,7 @@ import api_fetch from "./ApiService";
 import api_urls from "../configs/Api";
 
 export const create_payment = async (data) => {
-    return api_fetch(`${api_urls.CREATE_PAYMENT}?amount=${encodeURIComponent(data)}`, {
+    return api_fetch(`${api_urls.CREATE_PAYMENT}?amount=${data}`, {
         method: 'POST',
     });
 };

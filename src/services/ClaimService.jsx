@@ -6,3 +6,9 @@ export const get_advertisements = async () => {
         method: 'GET',
     });
 };
+
+export const get_user_points = async () => {
+    return api_fetch(api_urls.GET_USER_POINTS, {
+        method: 'GET',
+    });
+}; 

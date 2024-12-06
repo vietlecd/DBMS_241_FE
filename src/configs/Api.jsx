@@ -38,6 +38,12 @@ const API_URLS = {
     // ----------------- Add the ADVERTISEMENT API URLs ----------------- //
     GET_ADVERTISEMENTS: `${BASE_URL}view_advertisement`,
     // ---------------------------------------------------------------- //
+
+    // ----------------- Add the AUTHOR API URLs ----------------- //
+    GET_AUTHOR_INFO: `${BASE_URL}author/info`,
+    BECOME_AUTHOR: `${BASE_URL}author/become`,
+    GET_AUTHOR: `${BASE_URL}author/getAuthor`,
+    // ----------------------------------------------------------- //
 };
 
 export default API_URLS;
