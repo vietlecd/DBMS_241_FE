@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from './Header/Header';
 import ImgTemp from '../assets/temp-1.jpeg';
 
 const Book = () => {

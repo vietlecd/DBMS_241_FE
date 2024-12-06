@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { get_payment_history, get_pay_book } from "../../../services/PaymentService";
 
 const TransactionHistory = () => {
-  const token = localStorage.getItem("authToken");
-
   const [transactionData, setTransactionData] = useState([]);
   const [vnPayData, setVnPayData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,20 +15,8 @@ const TransactionHistory = () => {
       setLoading(true);
       try {
         const [transactionResponse, vnPayResponse] = await Promise.all([
-          fetch("http://localhost:8080/api/payment/get", {
-            method: "GET",
-            headers: { 
-              "Content-Type": "application/json", 
-              Authentication: `Bearer ${token}`,
-            },
-          }),
-          fetch("http://localhost:8080/api/payments", {
-            method: "GET",
-            headers: { 
-              "Content-Type": "application/json", 
-              Authentication: `Bearer ${token}`,
-            },
-          }),
+          get_payment_history(),
+          get_pay_book(),
         ]);
 
         if (!transactionResponse.ok || !vnPayResponse.ok) {

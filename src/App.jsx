@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
 import HomePage from "./components/HomePage";
-import UserProfile from "./components/User/UserProfile/UserProfile";
+import UserProfile from "./components/User/UserProfile";
 import VNPay from "./components/VNPay/index";
 import Fail from "./components/VNPay/Fail/index";
 import Success from "./components/VNPay/Success/index";

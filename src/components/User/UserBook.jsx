@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { get_books_bought, get_books_list } from "../../services/BookService";
 
 // Component BookList
 const BookList = ({ books, title }) => {
@@ -69,20 +70,8 @@ const UserBooks = () => {
       setLoading(true);
       try {
         const [purchasedResponse, favoriteResponse] = await Promise.all([
-            fetch("http://localhost:8080/api/findBookBought", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-          fetch("http://localhost:8080/api/list/get", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+            get_books_bought(),
+            get_books_list(),
         ]);
 
         if (!purchasedResponse.ok || !favoriteResponse.ok) {

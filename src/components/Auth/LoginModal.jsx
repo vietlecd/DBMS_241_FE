@@ -1,6 +1,7 @@
 import { FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {login} from "../../services/AuthService";
 
 const LoginModal = ({ onClose, onSwitchToRegister }) => {
   // State để quản lý giá trị của các input
@@ -13,27 +14,11 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://devjava-latest.onrender.com/api/users/login",
-        //"http://localhost:8080/api/users/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.text();
-        alert(`Error: ${errorData || "Login failed"}`);
-        return;
-      }
-
-      const token = await response.text(); 
+      const token = await login({ username, password });
 
       console.log('Token received:', token);
 
-      localStorage.setItem('authToken', token);
+      localStorage.setItem('token', token);
 
       alert("Login successful!");
       navigate("/profile");
