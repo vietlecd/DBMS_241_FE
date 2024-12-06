@@ -13,7 +13,6 @@ const api_fetch = async (url, options = {}) => {
         const response = await fetch(url, { ...options, headers });
 
         if (!response.ok) {
-            // Đọc nội dung lỗi chỉ một lần
             const contentType = response.headers.get('content-type');
             const errorData = contentType && contentType.includes('application/json')
                 ? await response.json()
@@ -21,7 +20,6 @@ const api_fetch = async (url, options = {}) => {
             throw new Error(errorData.message || errorData || 'Request Failed');
         }
 
-        // Đọc nội dung phản hồi thành công chỉ một lần
         const contentType = response.headers.get('content-type');
         const responseData = contentType && contentType.includes('application/json')
             ? await response.json()

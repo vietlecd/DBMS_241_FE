@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import UserBooks from "./UserBook";
-import CustomerSupport from "./CustomerSupport/CustomerSupport";
+import CustomerSupport from "../CustomerSupport/CustomerSupport";
 import UserTransactions from "./Transactions/TransactionHistory";
-import {get_user_info, update_user_info, get_user_points} from "../../services/UserService";
+import { get_user_info, update_user_info, get_user_points } from "../../services/UserService";
 import Sidebar from "./Sidebar/Sidebar";
 import UserProfileContent from "./UserProfile/UserProfileContent";
+import { use } from "react";
+
 
 const UserProfile = () => {
   const [userData, setUserData] = useState({
@@ -23,6 +25,7 @@ const UserProfile = () => {
 
 
   const fetchUserData = async () => {
+    
     try {
       const userData = await get_user_info();
       setUserData(userData);
@@ -34,7 +37,10 @@ const UserProfile = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleUpdate = async () => {
+  
     setLoading(true);
     try {
       await update_user_info(userData);
@@ -55,14 +61,14 @@ const UserProfile = () => {
   };
 
   const handleClick = () => {
-    window.location.href = "http://localhost:5173/payment";
+    navigate("/payment");
   };
 
   const handleAuthorSubmit = () => {
-    window.location.href = "http://localhost:5173/author";
+    navigate("/author");
   };
 
-  
+
 
   const handleCancel = () => {
     setUserData({

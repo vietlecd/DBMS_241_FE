@@ -29,6 +29,7 @@ function App() {
         {/* Register Author */}
         <Route path="/author" element={<AuthorProfile />} />
         <Route path="/authorBook" element={<AuthorBook />} />
+
       </Routes>
     </Router>
   );

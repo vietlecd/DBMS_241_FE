@@ -2,21 +2,22 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Data from "./Packages";
 import { Link, Navigate, redirect } from "react-router-dom";
+import {create_payment} from "../../services/PaymentService";
+import api_urls from "../../configs/Api";
 
 const packages = Data.slice(0, 8);
 
 function PackageCard({ title, price, points }) {
+    const token = localStorage.getItem("token");
     const handleClick = async () => {
         try {
-            const token = localStorage.getItem('authToken');
-            
             console.log("Nạp gói");
 
             const amount = parseInt(price.replace(/[^0-9]/g, ""), 10);
 
-            console.log(amount);
+            console.log(price);
 
-            const response = await fetch(`http://localhost:8080/api/submitOrder?amount=${amount}`, {
+            const response = await fetch(`${api_urls.CREATE_PAYMENT}?amount=${amount}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
