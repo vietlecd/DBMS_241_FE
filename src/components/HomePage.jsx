@@ -1,15 +1,13 @@
 import React from "react";
 import Banner from "./Banner";
-import BookList from "./BookList";
-import Book from "./Book";
+import BookList from "./Book/BookList";
+import Book from "./Book/Book";
 
 const HomePage = () => {
   return (
     <div>
       <Banner />
-      <BookList title={"Sách Đề Cử"} />
-      <BookList title={"Sách Miễn Phí"} />
-      <Book />
+
     </div>
   );
 };

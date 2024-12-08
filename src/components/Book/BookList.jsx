@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import ImgTemp from '../assets/temp-1.jpeg'
+import ImgTemp from '../../assets/temp-1.jpeg'
 
 const BookList = ({ title }) => {
   return (
