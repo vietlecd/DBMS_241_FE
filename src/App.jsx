@@ -1,27 +1,41 @@
-import { useState, useEffect } from 'react'
-import './index.css'
-import Header from './components/Header'
-import Banner from './components/Banner'
-import BookList from './components/BookList'
-import Footer from './components/Footer'
-import Book from './components/Book'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainLayout from "./components/MainLayout";
+import HomePage from "./components/HomePage";
+import UserProfile from "./components/User/UserProfile";
+import VNPay from "./components/VNPay/index";
+import Fail from "./components/VNPay/Fail/index";
+import Success from "./components/VNPay/Success/index";
+import AuthorProfile from "./components/Author/Profile";
+import AuthorBook from "./components/Author/BookList";
+import Book from "./components/Book/Book"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div className='bg-black pb-10'>
-        <Header />
-        <Banner />
+    <Router>
+      <Routes>
+        {/* Main layout */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+
+        <Route path="/book" element={<Book/>}/>
+
+        {/* User Profile */}
+        <Route path="/profile/*" element={<UserProfile />} />
+        <Route path="/account/books" element={<UserProfile />} />
         
-        <BookList title={"Sách Đề Cử"}/>
-        <BookList title={"Sách Miễn Phí"}/>
-        <Book/>
-        <Footer />
-      </div>
-    </>
-  )
+        {/* Payment routes */}
+        <Route path="/payment" element={<VNPay />} />
+        <Route path="/fail" element={<Fail />} />
+        <Route path="/success" element={<Success />} />
+
+        {/* Register Author */}
+        <Route path="/author" element={<AuthorProfile />} />
+        <Route path="/authorBook" element={<AuthorBook />} />
+
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

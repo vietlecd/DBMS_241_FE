@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import Header from "./Header";
-import Footer from "./Footer";
-import ImgTemp from '../assets/temp-1.jpeg';
+import React, { useState } from "react";
+import Header from "../Header/Header";
+import ImgTemp from "../../assets/temp-1.jpeg";
+import CommentsSection from "./CommentSection"; // Import CommentsSection
+import ReviewsSection from "./ReviewSection";   // Import ReviewsSection
 
 const Book = () => {
     const [activeTab, setActiveTab] = useState("reviews"); // Tab đang được chọn
@@ -90,52 +91,8 @@ const Book = () => {
 
                     {/* Tab Content */}
                     <div className="mt-4">
-                        {activeTab === "comments" && (
-                            <div>
-                                {comments.length > 0 ? (
-                                    comments.map((comment) => (
-                                        <div
-                                            key={comment.id}
-                                            className="bg-gray-800 p-4 rounded-lg mb-4 shadow"
-                                        >
-                                            <p className="text-green-400 font-semibold">{comment.user}</p>
-                                            <p className="text-gray-300">{comment.comment}</p>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className="text-gray-400">Không có bình luận nào.</p>
-                                )}
-                            </div>
-                        )}
-
-                        {activeTab === "reviews" && (
-                            <div className="bg-gray-800 p-4 rounded-lg shadow">
-                                <div className="flex items-center mb-4">
-                                    <span className="text-6xl font-bold text-yellow-400">{reviews.averageRating}</span>
-                                    <div className="ml-4">
-                                        <div className="text-yellow-400 text-xl">★ ★ ★ ★ ★</div>
-                                        <p className="text-gray-400">{reviews.totalReviews} đánh giá</p>
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    {reviews.ratings.map((count, index) => (
-                                        <div key={index} className="flex items-center">
-                                            <span className="w-12">{5 - index}★</span>
-                                            <div className="flex-1 bg-gray-700 h-3 rounded-lg overflow-hidden">
-                                                <div
-                                                    className="bg-yellow-400 h-full"
-                                                    style={{ width: `${(count / reviews.totalReviews) * 100}%` }}
-                                                ></div>
-                                            </div>
-                                            <span className="ml-4 text-gray-400">{count}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                                <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600">
-                                    Viết đánh giá
-                                </button>
-                            </div>
-                        )}
+                        {activeTab === "comments" && <CommentsSection comments={comments} />}
+                        {activeTab === "reviews" && <ReviewsSection reviews={reviews} />}
                     </div>
                 </div>
             </div>
