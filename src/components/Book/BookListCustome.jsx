@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import ImgTemp from "../../assets/temp-1.jpeg";
+import { useNavigate } from "react-router-dom";
 
 const BookListCustome = ({ title, books }) => {
   // Hàm chuyển đổi URL Google Drive thành URL thumbnail
@@ -15,13 +16,20 @@ const BookListCustome = ({ title, books }) => {
     return url; // Trả về URL gốc nếu không tìm thấy ID
   };
 
+  const navigate = useNavigate();
+
+  const handleBookClick = (book) => {
+    navigate(`/book`, { state: { book } });
+  };
+
+
   return (
     <div className="text-white p-10 mb-10 w-full">
       <h2 className="uppercase text-xl mb-4">{title}</h2>
       <div className="flex flex-wrap gap-4">
         {books.length > 0 ? (
           books.map((book, index) => (
-            <div key={index} className="w-1/4">
+            <div key={index} className="w-1/4" onClick={() => handleBookClick(book)}>
               <div className="relative">
                 <img
                   src={book.coverimage ? convertToThumbnailURL(book.coverimage) : ImgTemp}
