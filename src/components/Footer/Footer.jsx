@@ -17,16 +17,9 @@ const Footer = () => {
                 <p>Read everything you want, earn from what you write.</p>
             </div>
             <nav className=" flex justify-items-center items-center space-x-5 mx-auto text-white">
+                
                 <div>
-                    <h3>About us</h3>
-                    <a className=" "></a>
-                </div>
-                <div>
-                    <h3>Return & Replacement</h3>
-                    <a></a>
-                </div>
-                <div>
-                    <h3>Contact Us</h3>
+                    <h3></h3>
                     <a className=""></a>
                 </div>
                 <div>
