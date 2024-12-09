@@ -25,14 +25,7 @@ const RegisterModal = ({ onClose, onSwitchToLogin }) => {
 
     try {
       const response = await register(payload);
-      if (!response.ok) {
-        toast.error(
-          response || "An error occurred during registration.",
-          { position: "top-center", autoClose: 2000 }
-        );
-        return;
-      }
-    
+      console.log("Registration response:", response);
       toast.success("Registration successful! Redirecting to login...", {
         position: "top-center",
         autoClose: 1000,

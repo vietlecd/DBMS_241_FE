@@ -14,17 +14,10 @@ const TransactionHistory = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [transactionResponse, vnPayResponse] = await Promise.all([
+        const [transactionData, vnPayData] = await Promise.all([
           get_payment_history(),
           get_pay_book(),
-        ]);
-
-        if (!transactionResponse.ok || !vnPayResponse.ok) {
-          throw new Error("Failed to fetch data");
-        }
-
-        const transactionData = await transactionResponse.json();
-        const vnPayData = await vnPayResponse.json();
+        ]); 
 
         setTransactionData(transactionData);
         setVnPayData(vnPayData);

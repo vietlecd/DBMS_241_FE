@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import BookList from "../BookList"; 
 import AddBook from "../AddBook"; 
+import { get_books_written } from "../../../services/BookService";
 
 const AuthorBook = () => {
-    const token = localStorage.getItem("authToken");
 
     const [bookWritten, setBookWritten] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,20 +14,8 @@ const AuthorBook = () => {
         const fetchBooks = async () => {
             setLoading(true);
             try {
-                const response = await fetch("http://localhost:8080/api/findBookWritten", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    
-                });
+                const bookWrittenData = await get_books_written();
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch books");
-                }
-
-                const bookWrittenData = await response.json();
                 setBookWritten(bookWrittenData);
                 setLoading(false);
             } catch (err) {

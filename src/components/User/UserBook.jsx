@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { get_books_bought, get_books_list } from "../../services/BookService";
 
-// Component BookList
 const BookList = ({ books, title }) => {
-
   return (
     <div className="mt-6 z-0">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {books.map((book, index) => (
-          <div
-            key={index}
-            className="relative group cursor-pointer border border-gray-700 rounded-lg overflow-hidden"
-          >
-            <div className="relative w-full pt-[150%]">
-              <img
-                src={book.coverImage}
-                alt={book.title}
-                className="absolute z-0 inset-0 w-full h-full object-cover"
-              />
-              <div className="absolute top-2 right-2 px-2 py-1 rounded bg-yellow-500 text-white text-xs">
-                {book.publishyear}
+      {books && books.length > 0 ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          {books.map((book, index) => (
+            <div
+              key={index}
+              className="relative group cursor-pointer border border-gray-700 rounded-lg overflow-hidden"
+            >
+              <div className="relative w-full pt-[150%]">
+                <img
+                  src={book.coverImage || "/placeholder-image.png"} // Hiển thị hình placeholder nếu không có coverImage
+                  alt={book.title || "Untitled"}
+                  className="absolute z-0 inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute top-2 right-2 px-2 py-1 rounded bg-yellow-500 text-white text-xs">
+                  {book.publishyear || "N/A"}
+                </div>
               </div>
+              <p className="text-white text-sm mt-2 text-center truncate group-hover:text-yellow-500">
+                {book.title || "Không có tiêu đề"}
+              </p>
             </div>
-            <p className="text-white text-sm mt-2 text-center truncate group-hover:text-yellow-500">
-              {book.title}
-            </p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center mt-40">
+          <i className="bi bi-book text-gray-400 text-6xl mt-40"></i>
+          <p className="text-gray-400">Không có sách nào để hiển thị.</p>
+        </div>
+      )}
     </div>
   );
 };
+
 
 // Component Tabs
 const Tabs = ({ tabs, activeTab, onTabClick }) => {
@@ -55,7 +61,6 @@ const Tabs = ({ tabs, activeTab, onTabClick }) => {
 
 // Main Component UserBooks
 const UserBooks = () => {
-  const token = localStorage.getItem("authToken");
   const [purchasedBooks, setPurchasedBooks] = useState([]);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -69,20 +74,18 @@ const UserBooks = () => {
     const fetchBooks = async () => {
       setLoading(true);
       try {
-        const [purchasedResponse, favoriteResponse] = await Promise.all([
+        const [purchasedBooks, favoriteBooks] = await Promise.all([
             get_books_bought(),
             get_books_list(),
         ]);
 
-        if (!purchasedResponse.ok || !favoriteResponse.ok) {
-          throw new Error("Failed to fetch books");
+        if (!purchasedBooks || !favoriteBooks) {
+          setPurchasedBooks(purchasedBooks);
+          setFavoriteBooks(favoriteBooks);
         }
 
-        const purchasedBooksData = await purchasedResponse.json();
-        const favoriteBooksData = await favoriteResponse.json();
-
-        setPurchasedBooks(purchasedBooksData);
-        setFavoriteBooks(favoriteBooksData);
+        setPurchasedBooks(purchasedBooks);
+        setFavoriteBooks(favoriteBooks);
         setLoading(false);
       } catch (err) {
         setError(err.message || "An error occurred");

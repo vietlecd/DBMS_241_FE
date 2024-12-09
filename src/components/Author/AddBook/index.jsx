@@ -1,9 +1,10 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import React, { useState } from 'react';
+import { create_book } from '../../../services/BookService';
 
 function AddBook() {
-    const token = localStorage.getItem('authToken');
     const [username, setUsername] = useState('');
+    const [authorName, setAuthorName] = useState('');
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [imageFile, setImageFile] = useState(null);
     const [pdfFile, setPdfFile] = useState(null);
@@ -14,7 +15,8 @@ function AddBook() {
     const [price, setPrice] = useState('');
     const [bookIntro, setBookIntro] = useState('');
 
-    const categories = ["Fiction", "Non-Fiction", "Biography", "Science"];
+    const categories = ["Fiction", "Non-Fiction", "Biography", 
+        "Science", "Fantasy", "History", "Psychology", "Drama", "Novel", "Short Stories"];
 
     const handleCheckboxChange = (category) => {
         setSelectedCategory((prev) => {
@@ -46,12 +48,13 @@ function AddBook() {
         event.preventDefault();
 
         if (!username || !imageFile || !pdfFile || !bookTitle
-            || !publishYear || !totalPage || !price || !bookIntro) {
+            || !publishYear || !totalPage || !price || !bookIntro || !authorName || selectedCategory.length === 0) {
             alert("Please fill in all required fields.");
             return;
         }
 
         const trimUsername = username.trim().replace(/\s+/g, "");
+    
         const formattedCategories = selectedCategory.join(",");
 
         console.log(trimUsername, formattedCategories);
@@ -64,29 +67,18 @@ function AddBook() {
         formData.append("price", price);
         formData.append("namecategory", formattedCategories);
         formData.append("username", trimUsername);
+        formData.append("author_name", authorName)
         formData.append("totalpage", totalPage);
         formData.append("pdf", pdfFile);
 
         try {
-            const response = await fetch("http://localhost:8080/api/createBook", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const result = await create_book(formData);
 
-            if (!response.ok) {
-                const errorData = await response.text();
-                throw new Error(errorData || "Failed to save the book.");
-            }
-
-            const result = await response.text();
             console.log("Response:", result);
             alert("Book saved successfully!");
         } catch (error) {
             console.error("Error:", error);
-            alert("Failed to save the book. Please try again.");
+            // alert("Failed to save the book. Please try again.");
         }
     };
 
@@ -145,12 +137,26 @@ function AddBook() {
                         />
                     </div>
 
+                    {/* authorName */}
+                    <div className="mb-7">
+                        <label className="block text-white text-sm font-semibold mb-2">
+                            Author name <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Enter author name"
+                            value={authorName}
+                            onChange={(e) => setAuthorName(e.target.value)}
+                            className="w-full outline-0 h-10 border bg-gray-300 rounded-lg placeholder-gray-600 text-black text-sm px-4"
+                        />
+                    </div>
+
                     {/* Categories */}
                     <div className="mb-7">
                         <label className="block text-white text-sm font-semibold mb-2">
                             Categories <span className="text-red-600">*</span>
                         </label>
-                        <div className="mt-2">
+                        <div className="mt-2 grid grid-cols-5 gap-x-[100px]">
                             {categories.map((category) => (
                                 <div key={category} className="flex items-center mb-2">
                                     <input
