@@ -19,3 +19,9 @@ export const get_author = async () => {
         method: 'GET',
     });
 }
+
+export const count_book_written = async () => {
+    return api_fetch(api_urls.COUNT_BOOKS_WRITTEN, {
+        method: 'GET',
+    });
+}

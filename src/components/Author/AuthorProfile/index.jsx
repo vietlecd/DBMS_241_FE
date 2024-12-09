@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AuthorBook from "../AuthorBook/index";
 
-const MainContent = ({ activeContent, userData, handleChange, handleAuthorSubmit, loading }) => {
+const MainContent = ({ activeContent, userData, handleChange, handleAuthorSubmit, loading, countBook }) => {
     return (
         <div className="flex-1 p-6">
             {activeContent === "profile" && (
@@ -16,7 +16,7 @@ const MainContent = ({ activeContent, userData, handleChange, handleAuthorSubmit
                             <div className="px-6 py-5 flex justify-between rounded-lg border border-red-300 hover:border-red-600">
                                 <i className="bi bi-book text-red-600 text-4xl"></i>
                                 <div className="text-center">
-                                    <p className="text-2xl text-white">0</p>
+                                    <p className="text-2xl text-white">{countBook ? countBook : 0}</p>
                                     <p className="text-xl text-white">Truyện đã đăng</p>
                                 </div>
                             </div>
@@ -98,6 +98,7 @@ MainContent.propTypes = {
     handleChange: PropTypes.func.isRequired,
     handleAuthorSubmit: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
+    countBook: PropTypes.number.isRequired,
 };
 
 export default MainContent;

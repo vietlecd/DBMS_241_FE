@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { FaSearch, FaShoppingBag, FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
+    const navigate = useNavigate();
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -15,6 +17,10 @@ const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
             onSearch(searchTerm);
         }
     };
+
+    const handleClick = () => {
+        navigate("/payment");
+    }
 
     return (
         <div
@@ -73,7 +79,7 @@ const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
                         alt="icon-vip"
                         className="w-4 h-4"
                     />
-                    <p className="text-[13px] text-[#fc0] pl-[3px] whitespace-nowrap">Gói cước</p>
+                    <p className="text-[13px] text-[#fc0] pl-[3px] whitespace-nowrap" onClick={handleClick}>Gói cước</p>
                 </div>
                 <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
                 <FaUser size={24} className="text-red-500 cursor-pointer" onClick={onLoginClick} />

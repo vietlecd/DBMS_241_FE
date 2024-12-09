@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { get_books_bought, get_books_list } from "../../services/BookService";
 
-// Component BookList
-const BookList = ({ books, title }) => {
 
+const BookList = ({ books, title }) => {
   return (
     <div className="mt-6 z-0">
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
@@ -14,11 +13,13 @@ const BookList = ({ books, title }) => {
             className="relative group cursor-pointer border border-gray-700 rounded-lg overflow-hidden"
           >
             <div className="relative w-full pt-[150%]">
+              {/* Chuyển đổi liên kết trước khi render */}
               <img
-                src={book.coverImage}
+                src="https://res.cloudinary.com/drjece4ju/image/upload/v1730972101/samples/upscale-face-1.jpg"
                 alt={book.title}
                 className="absolute z-0 inset-0 w-full h-full object-cover"
               />
+
               <div className="absolute top-2 right-2 px-2 py-1 rounded bg-yellow-500 text-white text-xs">
                 {book.publishyear}
               </div>
@@ -32,6 +33,7 @@ const BookList = ({ books, title }) => {
     </div>
   );
 };
+
 
 // Component Tabs
 const Tabs = ({ tabs, activeTab, onTabClick }) => {
@@ -55,7 +57,6 @@ const Tabs = ({ tabs, activeTab, onTabClick }) => {
 
 // Main Component UserBooks
 const UserBooks = () => {
-  const token = localStorage.getItem("authToken");
   const [purchasedBooks, setPurchasedBooks] = useState([]);
   const [favoriteBooks, setFavoriteBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -64,25 +65,17 @@ const UserBooks = () => {
 
   const tabs = ["Sách đã mua", "Yêu thích"];
 
-  // Fetch both book data (purchased and favorite) initially
   useEffect(() => {
     const fetchBooks = async () => {
       setLoading(true);
       try {
-        const [purchasedResponse, favoriteResponse] = await Promise.all([
-            get_books_bought(),
-            get_books_list(),
+        const [purchasedBooks, favoriteBooks] = await Promise.all([
+          get_books_bought(),
+          get_books_list(),
         ]);
 
-        if (!purchasedResponse.ok || !favoriteResponse.ok) {
-          throw new Error("Failed to fetch books");
-        }
-
-        const purchasedBooksData = await purchasedResponse.json();
-        const favoriteBooksData = await favoriteResponse.json();
-
-        setPurchasedBooks(purchasedBooksData);
-        setFavoriteBooks(favoriteBooksData);
+        setPurchasedBooks(purchasedBooks);
+        setFavoriteBooks(favoriteBooks);
         setLoading(false);
       } catch (err) {
         setError(err.message || "An error occurred");
@@ -93,12 +86,10 @@ const UserBooks = () => {
     fetchBooks();
   }, []);
 
-  // Handle tab switching
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  // Determine which book list to display based on the active tab
   const booksToDisplay =
     activeTab === "Sách đã mua" ? purchasedBooks : favoriteBooks;
 

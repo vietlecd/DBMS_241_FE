@@ -21,7 +21,7 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
       localStorage.setItem('token', token);
 
       alert("Login successful!");
-      navigate("/profile");
+      // navigate("/profile");
     } catch (error) {
       console.error("An error occurred:", error);
       alert("An error occurred while logging in. Please try again later.");

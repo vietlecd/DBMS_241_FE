@@ -7,6 +7,7 @@ import Fail from "./components/VNPay/Fail/index";
 import Success from "./components/VNPay/Success/index";
 import AuthorProfile from "./components/Author/Profile";
 import AuthorBook from "./components/Author/BookList";
+import AddBook from "./components/Author/AddBook";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         {/* Register Author */}
         <Route path="/author" element={<AuthorProfile />} />
         <Route path="/authorBook" element={<AuthorBook />} />
+        <Route path="/addBook" element={<AddBook />} />
 
       </Routes>
     </Router>

@@ -15,8 +15,8 @@ const BookList = ({ books, title, onAddBook }) => {
                                 className="relative group cursor-pointer border border-gray-700 rounded-lg overflow-hidden"
                             >
                                 <div className="relative w-full pt-[150%]">
-                                    <img
-                                        src={book.coverImage}
+                                    <iframe
+                                        src={book.coverimage}
                                         alt={book.title}
                                         className="absolute z-0 inset-0 w-full h-full object-cover"
                                     />

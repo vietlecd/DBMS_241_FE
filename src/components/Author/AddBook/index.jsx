@@ -1,5 +1,6 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import React, { useState } from 'react';
+import api_urls from '../../../configs/Api';
 
 function AddBook() {
     const token = localStorage.getItem('authToken');
@@ -68,7 +69,7 @@ function AddBook() {
         formData.append("pdf", pdfFile);
 
         try {
-            const response = await fetch("http://localhost:8080/api/createBook", {
+            const response = await fetch(api_urls.CREATE_BOOK, {
                 method: "POST",
                 body: formData,
                 headers: {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import { become_author, get_author_info } from "../../../services/AuthorService";
+import { become_author, get_author_info, count_book_written } from "../../../services/AuthorService";
 import SideBar from "../Sidebar/index";
 import MainContent from "../AuthorProfile/index";
 import CustomerSupport from "../../CustomerSupport/CustomerSupport";
@@ -21,23 +21,34 @@ const AuthorProfile = () => {
     const [loading, setLoading] = useState(false);
     const [savedFullname, setSavedFullname] = useState("");
     const [isSupportVisible, setIsSupportVisible] = useState(false);
+    const [countBook, setCountBook] = useState(0);
+
+    // Fetch số lượng sách
+    const fetchCountBook = async () => {
+        try {
+            const count = await count_book_written();
+            console.log("Count book written:", count);
+            setCountBook(count);
+        } catch (error) {
+            console.error("Error fetching count book written:", error);
+            alert("An error occurred while fetching count book written.");
+        }
+    };
 
     const fetchUserPoints = async () => {
         try {
             const points = await get_user_points();
-
             console.log("User points:", points);
             setUserPoints(points);
         } catch (error) {
             console.error("Error fetching user points:", error);
             alert("An error occurred while fetching user points.");
         }
-    }; 
+    };
 
     const fetchUserData = async () => {
         try {
             const userData = await get_author_info();
-
             setUserData(userData);
             setSavedFullname(userData.fullname);
             console.log("User data:", userData);
@@ -53,17 +64,17 @@ const AuthorProfile = () => {
     };
 
     const handleClick = () => {
-        navigate("/payment"); 
+        navigate("/payment");
     };
 
-
+    // Fetch all data on component mount
     useEffect(() => {
         fetchUserData();
         fetchUserPoints();
+        fetchCountBook();
     }, []);
 
     return (
-
         <div className="min-h-screen bg-gray-800 text-white">
             {/* Header */}
             <Header />
@@ -72,10 +83,24 @@ const AuthorProfile = () => {
             <div className="container mx-auto px-6 py-10 pt-40">
                 <div className="flex space-x-0">
                     {/* Sidebar */}
-                    <SideBar setActiveContent={setActiveContent} activeContent={activeContent} setIsSupportVisible={setIsSupportVisible} handleClick={handleClick} userData={userData} savedFullname={savedFullname} userPoint={userPoints}/>
+                    <SideBar
+                        setActiveContent={setActiveContent}
+                        activeContent={activeContent}
+                        setIsSupportVisible={setIsSupportVisible}
+                        handleClick={handleClick}
+                        userData={userData}
+                        savedFullname={savedFullname}
+                        userPoint={userPoints}
+                    />
 
                     {/* Main Content */}
-                    <MainContent activeContent={activeContent} userData={userData} handleChange={handleChange} loading={loading} />
+                    <MainContent
+                        activeContent={activeContent}
+                        userData={userData}
+                        handleChange={handleChange}
+                        loading={loading}
+                        countBook={countBook}
+                    />
                 </div>
             </div>
             {/* Customer Support Overlay */}

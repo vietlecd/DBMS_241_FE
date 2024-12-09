@@ -14,6 +14,7 @@ const API_URLS = {
     CREATE_BOOK: `${BASE_URL}createBook`,
     GET_BOOKS_WRITTEN: `${BASE_URL}findBookWritten`,
     GET_BOOKS_LIST: `${BASE_URL}list/get`,
+    COUNT_BOOKS_WRITTEN: `${BASE_URL}countBookWritten`,
     // ----------------------------------------------------- //
 
     // ----------------- Add the PAYMENT ----------------- //
