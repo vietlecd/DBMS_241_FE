@@ -15,7 +15,7 @@ const LoginModal = ({ onClose, onSwitchToRegister }) => {
 
     try {
       const token = await login({ username, password });
-      
+
       console.log('Token received:', token);
 
       localStorage.setItem('token', token);
