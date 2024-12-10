@@ -25,7 +25,7 @@ const MainContent = ({ activeContent, userData, handleChange, handleAuthorSubmit
                             <div className="px-6 py-5 flex justify-between rounded-lg border border-red-300 hover:border-red-600">
                                 <i className="bi bi-people text-red-600 text-4xl"></i>
                                 <div className="text-center">
-                                    <p className="text-2xl text-white">0</p>
+                                    <p className="text-2xl text-white">{follows ? follows : 0}</p>
                                     <p className="text-xl text-white">Người theo dõi</p>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@ const MainContent = ({ activeContent, userData, handleChange, handleAuthorSubmit
                             <div className="px-6 py-5 flex justify-between rounded-lg border border-red-300 hover:border-red-600">
                                 <i className="bi bi-envelope-heart text-red-600 text-4xl"></i>
                                 <div className="text-center">
-                                    <p className="text-2xl text-white">0</p>
+                                    <p className="text-2xl text-white">{recommendBooks ? recommendBooks : 0}</p>
                                     <p className="text-xl text-white">Sách đề cử</p>
                                 </div>
                             </div>

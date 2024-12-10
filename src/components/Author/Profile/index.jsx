@@ -5,8 +5,9 @@ import { become_author, get_author_info, count_book_written } from "../../../ser
 import SideBar from "../Sidebar/index";
 import MainContent from "../AuthorProfile/index";
 import CustomerSupport from "../../CustomerSupport/CustomerSupport";
-import { get_user_points } from "../../../services/UserService";
 import { useNavigate } from "react-router-dom";
+import { count_books_by_author } from "../../../services/BookService";
+import {get_user_points} from "../../../services/UserService";
 
 const AuthorProfile = () => {
     const navigate = useNavigate();
@@ -16,7 +17,6 @@ const AuthorProfile = () => {
         bio: "",
     });
 
-    const [userPoints, setUserPoints] = useState("");
     const [activeContent, setActiveContent] = useState("profile");
     const [loading, setLoading] = useState(false);
     const [savedFullname, setSavedFullname] = useState("");
@@ -42,7 +42,7 @@ const AuthorProfile = () => {
             setUserPoints(points);
         } catch (error) {
             console.error("Error fetching user points:", error);
-            alert("An error occurred while fetching user points.");
+            
         }
     };
 
@@ -54,9 +54,24 @@ const AuthorProfile = () => {
             console.log("User data:", userData);
         } catch (error) {
             console.error("Error fetching user data:", error);
-            alert("An error occurred while fetching user data.");
+        
         }
     };
+
+    const handleAuthorSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            await become_author(userData);
+            alert("Author status updated successfully");
+            setLoading(false);
+        } catch (error) {
+            console.error("Error updating author status:", error);
+            alert("An error occurred while updating author status.");
+            setLoading(false);
+        }
+    };
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;

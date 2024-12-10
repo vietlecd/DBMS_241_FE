@@ -22,6 +22,14 @@ export const get_author = async () => {
 
 export const count_book_written = async () => {
     return api_fetch(api_urls.COUNT_BOOKS_WRITTEN, {
+export const count_follows = async () => {
+    return api_fetch(api_urls.COUNT_FOLLOWS, {
+        method: 'GET',
+    });
+}
+
+export const count_recommend_books = async () => {
+    return api_fetch(api_urls.COUNT_RECOMMEND_BOOKS, {
         method: 'GET',
     });
 }

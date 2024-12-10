@@ -8,6 +8,7 @@ import Success from "./components/VNPay/Success/index";
 import AuthorProfile from "./components/Author/Profile";
 import AuthorBook from "./components/Author/BookList";
 import AddBook from "./components/Author/AddBook";
+import Book from "./components/Book/Book"
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
         </Route>
+
+        <Route path="/book" element={<Book/>}/>
 
         {/* User Profile */}
         <Route path="/profile/*" element={<UserProfile />} />

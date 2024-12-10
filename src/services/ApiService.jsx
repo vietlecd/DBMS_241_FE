@@ -2,6 +2,7 @@ import api_urls from "../configs/Api";
 
 const api_fetch = async (url, options = {}) => {
     const token = localStorage.getItem('token');
+    console.log(token);
 
     const headers = {
         'Content-Type': 'application/json',
@@ -11,6 +12,8 @@ const api_fetch = async (url, options = {}) => {
 
     try {
         const response = await fetch(url, { ...options, headers });
+
+        console.log(response);
 
         if (!response.ok) {
             const contentType = response.headers.get('content-type');

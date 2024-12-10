@@ -7,6 +7,7 @@ const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
     const navigate = useNavigate();
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     const toggleSearch = () => setShowSearch((prev) => !prev);
 
@@ -16,6 +17,9 @@ const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
         if (e.key === "Enter") {
             onSearch(searchTerm);
         }
+    };
+    const handlePaymentClick = () => {
+        navigate("/payment"); 
     };
 
     const handleClick = () => {
@@ -73,13 +77,15 @@ const FullHeader = ({ onLoginClick, onSearch, hasTopBanner }) => {
                 </div>
 
                 {/* Other Icons */}
-                <div className="cursor-pointer bg-package border border-[#FC0] rounded-2xl px-2.5 py-[5.25px] bg-[rgba(255,204,0,0.16)] min-w-[92px] flex items-center">
+                <div className="cursor-pointer bg-package border border-[#FC0] rounded-2xl px-2.5 py-[5.25px] bg-[rgba(255,204,0,0.16)] min-w-[92px] flex items-center"
+                    onClick={handlePaymentClick}>
                     <img
                         src="https://waka.vn/svgs/icon-vip.svg"
                         alt="icon-vip"
                         className="w-4 h-4"
                     />
                     <p className="text-[13px] text-[#fc0] pl-[3px] whitespace-nowrap" onClick={handleClick}>Gói cước</p>
+
                 </div>
                 <FaShoppingBag size={24} className="text-red-500 cursor-pointer" />
                 <FaUser size={24} className="text-red-500 cursor-pointer" onClick={onLoginClick} />
