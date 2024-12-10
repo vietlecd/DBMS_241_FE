@@ -14,6 +14,7 @@ function AddBook() {
     const [totalPage, setTotalPage] = useState('');
     const [price, setPrice] = useState('');
     const [bookIntro, setBookIntro] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const categories = ["Fiction", "Non-Fiction", "Biography", 
         "Science", "Fantasy", "History", "Psychology", "Drama", "Novel", "Short Stories"];
@@ -46,15 +47,23 @@ function AddBook() {
 
     const handleSaveBook = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
         if (!username || !imageFile || !pdfFile || !bookTitle
             || !publishYear || !totalPage || !price || !bookIntro || !authorName || selectedCategory.length === 0) {
             alert("Please fill in all required fields.");
+            setLoading(false);
             return;
         }
 
-        const trimUsername = username.trim().replace(/\s+/g, "");
-    
+        const trimUsername = username.trim().replace(/\s+/g, ",");
+
+        if (!/^[a-zA-Z0-9,]+$/.test(trimUsername)) {
+            alert("Username should not contain spaces or special characters.");
+            setLoading(false);
+            return;
+        }
+
         const formattedCategories = selectedCategory.join(",");
 
         console.log(trimUsername, formattedCategories);
@@ -67,7 +76,7 @@ function AddBook() {
         formData.append("price", price);
         formData.append("namecategory", formattedCategories);
         formData.append("username", trimUsername);
-        formData.append("author_name", authorName)
+        formData.append("author_name", authorName);
         formData.append("totalpage", totalPage);
         formData.append("pdf", pdfFile);
 
@@ -79,6 +88,8 @@ function AddBook() {
         } catch (error) {
             console.error("Error:", error);
             // alert("Failed to save the book. Please try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -242,9 +253,14 @@ function AddBook() {
                     <button
                         type="submit"
                         onClick={handleSaveBook}
-                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                        className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center justify-center"
+                        disabled={loading}
                     >
-                        Save Book
+                        {loading ? (
+                            <i className="bi bi-arrow-repeat animate-spin mr-2"></i>
+                        ) : (
+                            "Save Book"
+                        )}
                     </button>
                 </div>
             </div>
