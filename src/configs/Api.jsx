@@ -1,7 +1,7 @@
 import { count_books_by_author } from "../services/BookService";
 
 const apiKey = import.meta.env.VITE_API_BASE_URL;
-const BASE_URL = `http://localhost:8080/api/`;
+const BASE_URL = apiKey || `http://localhost:8080/api/`;
 
 const API_URLS = {
     // ----------------- Add the AUTH URLs ----------------- //
@@ -16,7 +16,6 @@ const API_URLS = {
     CREATE_BOOK: `${BASE_URL}createBook`,
     GET_BOOKS_WRITTEN: `${BASE_URL}findBookWritten`,
     GET_BOOKS_LIST: `${BASE_URL}list/get`,
- 
     // ----------------------------------------------------- //
 
     // ----------------- Add the PAYMENT ----------------- //
